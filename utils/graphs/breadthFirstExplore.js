@@ -4,27 +4,39 @@
  * @param callback - this will be passed nodes as they are explored. do whatever you want with this.  Return true
  * if you want exploration to stop at this node.
  */
-const breadthFirstExplore = (root, callback) => {
+const breadthFirstExplore = (root, { onExploreNode = () => undefined, onQueueNode = () => undefined }) => {
   const queue = [root];
+  const rootQueuedVal = onQueueNode(root);
+  if (rootQueuedVal) {
+    return rootQueuedVal;
+  }
+
   const explored = { [root.id]: true };
 
   while (queue.length) {
     const current = queue.shift();
-    if (callback(current) === true) {
-      return;
+    const onExploreVal = onExploreNode(current);
+    if (onExploreVal) {
+      return onExploreVal;
     }
 
-    Object.keys(current.connections).forEach(nodeId => {
+    for (let i = 0; i < Object.keys(current.connections).length; i += 1) {
+      const nodeId = Object.keys(current.connections)[i];
       if (!explored[nodeId]) {
-        queue.push(current.connections[nodeId]);
+        const nodeToQueue = current.connections[nodeId];
+        queue.push(nodeToQueue);
         explored[nodeId] = true;
+        const onQueueVal = onQueueNode(nodeToQueue);
+        if (onQueueVal) {
+          return onQueueVal;
+        }
       }
-    });
+    }
   }
 };
 
 // const { getExampleGraphRoot } = require('./GraphNode');
 // const root = getExampleGraphRoot();
-// breadthFirstExplore(root, n => console.log(n.id));
+// breadthFirstExplore(root, { onExploreNode: n => console.log(n.id) });
 
 module.exports = { breadthFirstExplore };
