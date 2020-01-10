@@ -1,20 +1,31 @@
 const { breadthFirstExplore } = require('./breadthFirstExplore');
 
-const getShortestPath = (rootNode, targetNodeId) => {
-  const enrichedQueue = [];
-  let lastValFromQueue = [];
-
-  const onExploreNode = () => {
-    lastValFromQueue = enrichedQueue.shift();
-  };
-  const onQueueNode = queuedNode => {
-    const pathToThisNode = lastValFromQueue.concat(queuedNode.id);
-    if (queuedNode.id === targetNodeId) {
-      return pathToThisNode;
+const calculateShortestPath = (rootNode, targetNodeId) => {
+  const onExploreQueuedItem = item => {
+    if (item.node.id === targetNodeId) {
+      return item.pathSize;
     }
-    enrichedQueue.push(pathToThisNode);
   };
-  return breadthFirstExplore(rootNode, { onExploreNode, onQueueNode });
+  const queuedItemEnricher = (queuedNode, lastQueuedValue) => {
+    const pathLengthSoFar = lastQueuedValue.pathSize || 0;
+    return { pathSize: pathLengthSoFar + 1 };
+  };
+  return breadthFirstExplore(rootNode, { onExploreQueuedItem, queuedItemEnricher });
 };
 
-module.exports = { getShortestPath };
+// in contrast to calculateShortestPath, which just returns the length of the shortest path, getShortestPath returns
+// an array that is the actual shortest path
+const getShortestPath = (rootNode, targetNodeId) => {
+  const onExploreQueuedItem = item => {
+    if (item.node.id === targetNodeId) {
+      return item.path;
+    }
+  };
+  const queuedItemEnricher = (queuedNode, lastQueuedValue) => {
+    const pathSoFar = lastQueuedValue.path || [];
+    return { path: pathSoFar.concat(queuedNode.id) };
+  };
+  return breadthFirstExplore(rootNode, { onExploreQueuedItem, queuedItemEnricher });
+};
+
+module.exports = { getShortestPath, calculateShortestPath };
