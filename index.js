@@ -1,35 +1,52 @@
-// for each of [-1, -1], [-1, 0], [0, -1], ... [1, 1]
-// get a key that will hold it in the map
-const diffsToKey = diff => {
+// [1, 3, 5, 2, 4, 6]
+const countInversions = unsortedArray => {
+  const merge = (left, right) => {
+    let leftIndex = 0;
+    let rightIndex = 0;
+    let inversions = 0;
+    const merged = [];
+    const calculateInversions = () => left.length - leftIndex;
+    const pushToMerged = (side, index) => {
+      merged.push(side[index]);
+      return index + 1;
+    };
 
-};
-
-// for any given coordinates get its slope against the queen
-const slopeFromQueensCoordinates = (coordinates, queenCoordinates) => {
-
-};
-
-const obstacleAIsCloserToQueenThanObstacleB = (obstacleACoordinates, obstacleBCoordinates, queenCoordinates) => {
-
-};
-
-const queenAttack = (boardSize, queenCoordinates, obstaclesCoordinates) => {
-    const closestObstacles = {};
-
-    for (let i = 0; i < obstaclesCoordinates.length; i += 1) {
-        const slopeAgainstQueen = slopeFromQueensCoordinates(obstaclesCoordinates[i], queenCoordinates);
-        const key = diffsToKey(slopeAgainstQueen);
-        // key will be null if square is unreachable to queen
-        if (key) {
-            if (
-                !closestObstacles[key] ||
-                obstacleAIsCloserToQueenThanObstacleB(obstaclesCoordinates[i], closestObstacles[key], queenCoordinates)
-            ) {
-                closestObstacles[key] = obstaclesCoordinates[i];
-            }
-        }
+    while (leftIndex < left.length || rightIndex < right.length) {
+      if (typeof right[rightIndex] !== 'number') {
+        leftIndex = pushToMerged(left, leftIndex);
+        continue;
+      }
+      if (typeof left[leftIndex] !== 'number') {
+        rightIndex = pushToMerged(right, rightIndex);
+        continue;
+      }
+      if (left[leftIndex] <= right[rightIndex]) {
+        merged.push(left[leftIndex]);
+        leftIndex += 1;
+      } else {
+        merged.push(right[rightIndex]);
+        rightIndex += 1;
+        inversions += calculateInversions();
+      }
     }
+    return [merged, inversions];
+  };
 
-
+  let inversions = 0;
+  const mergeSort = unsorted => {
+    if (unsorted.length <= 1) {
+      return unsorted;
+    }
+    const halfway = unsorted.length / 2;
+    const left = mergeSort(unsorted.slice(0, halfway));
+    const right = mergeSort(unsorted.slice(halfway));
+    const [merged, inversionsFromThisMerge] = merge(left, right);
+    inversions += inversionsFromThisMerge;
+    return merged;
+  };
+  mergeSort(unsortedArray);
+  // console.log(merge([1, 3, 5], [2, 4, 6]));
+  return inversions;
 };
 
+console.log(countInversions([1, 3, 5, 2, 4, 6]));

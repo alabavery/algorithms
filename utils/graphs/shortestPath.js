@@ -1,5 +1,6 @@
 const { breadthFirstExplore } = require('./breadthFirstExplore');
 
+// get the number of nodes in the shortest path from the root to the target
 const calculateShortestPath = (rootNode, targetNodeId) => {
   const onExploreQueuedItem = item => {
     if (item.node.id === targetNodeId) {

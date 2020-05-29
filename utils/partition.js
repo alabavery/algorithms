@@ -1,4 +1,8 @@
-const swapArrVals = (arr, idx1, idx2) => {
+// Partitioning is a key part of quick-sort.  It is to take some pivot in an array and rearrange the array such that
+// all values before the pivot are lower than it and all values after are higher (but neither side is necessarily sorted
+// within itself)
+
+ const swapArrVals = (arr, idx1, idx2) => {
     const temp = arr[idx1];
     arr[idx1] = arr[idx2];
     arr[idx2] = temp;
