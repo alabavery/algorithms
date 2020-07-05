@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a04dad2d-1b80-4e8b-aae3-98abe924edd5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/climbingTheLeaderboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/electronicsStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/benchmarking/timeit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/countInversions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/sorting/mergeSort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/trees/BinarySearchTree.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queenAttack.js" beforeDir="false" afterPath="$PROJECT_DIR$/queenAttack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/graphs/shortestPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/graphs/shortestPath.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/partition.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/partition.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +70,10 @@
       <workItem from="1589853312460" duration="4095000" />
       <workItem from="1590588817827" duration="622000" />
       <workItem from="1590668814548" duration="2603000" />
-      <workItem from="1590758859543" duration="884000" />
+      <workItem from="1590758859543" duration="1774000" />
+      <workItem from="1592823611023" duration="588000" />
+      <workItem from="1593699451931" duration="3220000" />
+      <workItem from="1593828804986" duration="4540000" />
     </task>
     <servers />
   </component>
